@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北京罗曼星球三日行程单</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink: #E91E7A;
+    --pink-deep: #B0135A;
+    --sky: #4FC3E8;
+    --cream: #FFF7EC;
+    --plum: #2E1830;
+    --gold: #E8A93A;
+    --card: #FFFFFF;
+    --line: #F0DCE6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 10% 5%, #FFE3EF 0%, transparent 40%),
+      radial-gradient(circle at 90% 15%, #D9F3FA 0%, transparent 45%),
+      var(--cream);
+    font-family:'Noto Sans SC', sans-serif;
+    color: var(--plum);
+    padding: 0 0 80px;
+  }
+  .header{
+    text-align:center;
+    padding: 56px 20px 40px;
+    position:relative;
+  }
+  .header .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    letter-spacing: 3px;
+    color: var(--pink-deep);
+    font-size: 13px;
+    text-transform:uppercase;
+  }
+  .header h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size: clamp(32px, 6vw, 52px);
+    margin: 10px 0 8px;
+    color: var(--plum);
+  }
+  .header h1 span{ color: var(--pink); }
+  .header .sub{
+    font-size:15px;
+    color:#6B5566;
+  }
+  .stamp-row{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:22px;
+    flex-wrap:wrap;
+  }
+  .stamp{
+    border: 2px dashed var(--pink);
+    border-radius: 50%;
+    width: 74px; height:74px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:11px;
+    color: var(--pink-deep);
+    text-align:center;
+    transform: rotate(-6deg);
+    background: rgba(255,255,255,0.5);
+  }
+  .stamp:nth-child(2){ transform: rotate(4deg); border-color: var(--sky); color:#1A7A96; }
+  .stamp:nth-child(3){ transform: rotate(-3deg); border-color: var(--gold); color:#8A6413; }
+
+  .container{ max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  .day-card{
+    background: var(--card);
+    border-radius: 24px;
+    margin-bottom: 34px;
+    box-shadow: 0 10px 30px rgba(176,19,90,0.08);
+    overflow:hidden;
+    border: 1px solid var(--line);
+  }
+  .day-head{
+    background: linear-gradient(120deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color: white;
+    padding: 22px 28px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .day-head .date{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:22px;
+  }
+  .day-head .tag{
+    font-size:13px;
+    background: rgba(255,255,255,0.22);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-weight:600;
+  }
+  .timeline{
+    padding: 26px 28px 30px;
+  }
+  .stop{
+    display:grid;
+    grid-template-columns: 68px 1fr;
+    gap: 18px;
+    position:relative;
+    padding-bottom: 22px;
+  }
+  .stop:last-child{ padding-bottom:0; }
+  .stop::before{
+    content:'';
+    position:absolute;
+    left: 33px;
+    top: 26px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--line);
+  }
+  .stop:last-child::before{ display:none; }
+  .stop .time{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color: var(--pink-deep);
+    padding-top:2px;
+    position:relative;
+  }
+  .stop .time::after{
+    content:'';
+    position:absolute;
+    right:-11px;
+    top:6px;
+    width:10px; height:10px;
+    border-radius:50%;
+    background: var(--pink);
+    border:2px solid white;
+    box-shadow: 0 0 0 2px var(--pink);
+  }
+  .stop .content .title{
+    font-weight:700;
+    font-size:16px;
+    margin-bottom:4px;
+  }
+  .stop .content .note{
+    font-size:13.5px;
+    color:#7A6577;
+    line-height:1.5;
+  }
+  .risk .time::after{ background: var(--gold); box-shadow:0 0 0 2px var(--gold); }
+  .risk .content .note{ color:#A6690E; font-weight:600; }
+
+  .ticket-section{
+    background: var(--card);
+    border-radius: 24px;
+    padding: 30px 28px;
+    margin-bottom: 34px;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(176,19,90,0.08);
+  }
+  .ticket-section h2{
+    font-family:'Baloo 2', sans-serif;
+    font-size: 22px;
+    color: var(--pink-deep);
+    margin: 0 0 20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .ticket-item{
+    border-top: 1px dashed var(--line);
+    padding: 16px 0;
+    display:grid;
+    grid-template-columns: 28px 1fr;
+    gap:12px;
+  }
+  .ticket-item:first-of-type{ border-top:none; }
+  .ticket-item .num{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    color: var(--sky);
+    font-size:18px;
+  }
+  .ticket-item .t-title{ font-weight:700; margin-bottom:4px; }
+  .ticket-item .t-note{ font-size:13.5px; color:#6B5566; line-height:1.6; }
+
+  .footer-note{
+    background: linear-gradient(120deg, #FFE9F2, #E6F7FC);
+    border-radius: 20px;
+    padding: 24px 28px;
+    font-size: 13.5px;
+    color: #6B4A5A;
+    line-height:1.7;
+    border: 1px solid var(--line);
+  }
+  .footer-note strong{ color: var(--pink-deep); }
+
+  @media print{
+    body{ background: white; }
+    .day-card, .ticket-section, .footer-note{ box-shadow:none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">ROMANOVA × BEIJING</div>
+  <h1>罗曼<span>盛夏</span>北京漫游</h1>
+  <div class="sub">8月21日 — 8月23日 · 三日集章打卡行程单</div>
+  <div class="stamp-row">
+    <div class="stamp">邂逅<br>打卡章</div>
+    <div class="stamp">City Walk<br>探寻章</div>
+    <div class="stamp">拾趣<br>好物章</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="day-card">
+    <div class="day-head">
+      <div class="date">8月21日 · 周五</div>
+      <div class="tag">落地日</div>
+    </div>
+    <div class="timeline">
+      <div class="stop"><div class="time">10:30</div><div class="content"><div class="title">落地大兴机场</div><div class="note">车程约70-90分钟前往酒店</div></div></div>
+      <div class="stop"><div class="time">12:30</div><div class="content"><div class="title">放行李</div><div class="note">体育场东路9号，简单午餐</div></div></div>
+      <div class="stop"><div class="time">13:30</div><div class="content"><div class="title">大象无形音乐公司</div><div class="note">工人体育北路4号院，打车约5分钟，外观拍照打卡</div></div></div>
+      <div class="stop"><div class="time">14:00</div><div class="content"><div class="title">侨福芳草地 · 笼笼包子铺快闪店</div><div class="note">集邂逅打卡章 + 拾趣好物章；中庭区域需提前预约</div></div></div>
+      <div class="stop"><div class="time">15:30</div><div class="content"><div class="title">THE BOX朝外 · 罗曼星球快闪店</div><div class="note">免预约，集第二枚邂逅打卡章</div></div></div>
+      <div class="stop"><div class="time">16:30</div><div class="content"><div class="title">前往鸟巢</div><div class="note">车程约20-25分钟</div></div></div>
+      <div class="stop"><div class="time">17:30</div><div class="content"><div class="title">鸟巢提前打卡</div><div class="note">火炬广场 / 庆典广场 / 大屯水系的罗曼星球巨型装置</div></div></div>
+      <div class="stop"><div class="time">18:30</div><div class="content"><div class="title">演唱会</div><div class="note">固定行程，提前1小时到场</div></div></div>
+      <div class="stop"><div class="time">21:30</div><div class="content"><div class="title">三里屯太古里夜逛</div><div class="note">紧邻酒店，散场后顺路逛逛，收尾这一天</div></div></div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-head">
+      <div class="date">8月22日 · 周六</div>
+      <div class="tag">电影日</div>
+    </div>
+    <div class="timeline">
+      <div class="stop"><div class="time">9:00</div><div class="content"><div class="title">亮马河 · 亮马东院打卡</div><div class="note">离酒店最近的City Walk探寻章打卡点</div></div></div>
+      <div class="stop"><div class="time">10:30</div><div class="content"><div class="title">前往环城大道</div><div class="note">车程约50-60分钟</div></div></div>
+      <div class="stop"><div class="time">11:00</div><div class="content"><div class="title">午餐</div><div class="note">附近</div></div></div>
+      <div class="stop"><div class="time">12:00</div><div class="content"><div class="title">环球城市大道 · 罗曼星球快闪店</div><div class="note">RD-10店铺 ，免预约，集第三枚邂逅打卡章。兑换贴纸</div></div></div>
+      <div class="stop"><div class="time">16:30</div><div class="content"><div class="title">电影 @ 超维视界</div><div class="note">16:30-17:30，固定行程</div></div></div>
+      <div class="stop risk"><div class="time">18:00</div><div class="content"><div class="title">前往北海公园</div><div class="note">车程约40-45分钟，预留缓冲避免堵车影响后续行程</div></div></div>
+      <div class="stop"><div class="time">18:45</div><div class="content"><div class="title">北海公园</div><div class="note">白塔+湖景，赶上8月中旬19点左右的日落</div></div></div>
+      <div class="stop"><div class="time">19:30</div><div class="content"><div class="title">什刹海 / 后海</div><div class="note">步行10-15分钟即达，夜色漫步+晚餐</div></div></div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-head">
+      <div class="date">8月23日 · 周日</div>
+      <div class="tag">返程日 · 15:40起飞</div>
+    </div>
+    <div class="timeline">
+      <div class="stop"><div class="time">9:00</div><div class="content"><div class="title">水立方花墙</div><div class="note">物料，游玩，印章本带上</div></div></div>
+      <div class="stop"><div class="time">10:00</div><div class="content"><div class="title">我与地坛</div><div class="note">我与地坛，与北京</div></div></div>
+      <div class="stop"><div class="time">11:00</div><div class="content"><div class="title">选：国家自然博物馆</div><div class="note">提前3天预约</div></div></div>
+      <div class="stop"><div class="time">12:45</div><div class="content"><div class="title">午餐</div><div class="note">附近解决，建议从简，为机场留足缓冲</div></div></div>
+      <div class="stop risk"><div class="time">13:30</div><div class="content"><div class="title">前往大兴机场</div><div class="note">工体到大兴车程70-90分钟，时间偏紧，建议提前叫车</div></div></div>
+      <div class="stop"><div class="time">15:40</div><div class="content"><div class="title">登机返程</div><div class="note">结束北京行</div></div></div>
+    </div>
+  </div>
+
+  <div class="ticket-section">
+    <h2>🎫 需要提前预约</h2>
+    <div class="ticket-item">
+      <div class="num">01</div>
+      <div><div class="t-title">笼笼包子铺快闪店中庭区域</div><div class="t-note">侨福芳草地LG2中庭区域标注"需预约后方可入内"，具体渠道以罗曼星球ROMANOVA官方公众号或现场公告为准，建议提前关注小红书号 6301238791 获取最新预约通道；其余打卡点（出品台、信号站、旋转门等）无需预约。</div></div>
+    </div>
+    <div class="ticket-item">
+      <div class="num">02</div>
+      <div><div class="t-title">鸟巢演唱会</div><div class="t-note">提前核实电子票取票方式与入场安检流程，通常需提前1-2小时排队安检，建议不晚于17:30到场。</div></div>
+    </div>
+    <div class="ticket-item">
+      <div class="num">03</div>
+      <div><div class="t-title">798电影 @ 超维视界</div><div class="t-note">建议提前在猫眼/淘票票锁定16:30场次和座位，避免现场满座。</div></div>
+    </div>
+    <div class="ticket-item">
+      <div class="num">04</div>
+      <div><div class="t-title">THE BOX朝外 / 环球城市大道快闪店</div><div class="t-note">均为免预约快闪店，直接前往即可。</div></div>
+    </div>
+    <div class="ticket-item">
+      <div class="num">05</div>
+      <div><div class="t-title">日坛公园 / 北海公园 / 什刹海</div><div class="t-note">均为免费或现场购票公园，无需提前实名预约（北海公园门票现场或线上购买均可，暑期建议避开正午高峰）。</div></div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>提醒：</strong>8/22 电影结束后前往北海公园那段车程约40-45分钟，若堵车会挤压日落时间，建议电影一结束就出发；8/23 从侨福芳草地到大兴机场车程70-90分钟，时间偏紧，午餐建议从简，尽量提前打车，别为了多逛耽误登机。
+  </div>
+
+</div>
+
+</body>
+</html>
